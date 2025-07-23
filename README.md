@@ -14,14 +14,12 @@ Third from the context_parameter sheet change the context parameters values from
  - Don't edit the red highligted column
 
 Fourth from the schema sheet in dbx_scehma.xlsx
- - input your ddl (fields in the column B) and data type in column C 
+ - input your ddl (fields in the column B) and data type in column C
+ - always include the these fields at the bottom
+   - dbx_process_dttm
+   - file_name
+   - file_id
  - You may add comments if needed (in the designated comment column).
-
-
-Fifth always include the these fields at the bottom
-- dbx_process_dttm
-- file_name
-- file_id
 
 
 
