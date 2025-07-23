@@ -5,6 +5,7 @@ Databricks generator
 First you must install these libraries
 - pip install openpyxl
 - pip install python-dotenv
+- type pip install -r requirements.txt
 
 
 Second change the BASE_PATH from the .env file
