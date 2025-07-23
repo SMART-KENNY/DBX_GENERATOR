@@ -1,0 +1,212 @@
+{
+    "application_name": "Ventas - Activation CA",
+    "logger_configuration": {
+      "log_level": "DEBUG"
+    },
+    "task_configuration": {
+        "datasource_configuration": {
+            "s3_data_bucket_key": "landing_bucket_name",
+            "s3_in_process_data_prefix": "wi_topup_converted_hly/in_process/",
+            "s3_reprocessing_data_prefix": "wi_topup_converted_hly/reprocessing/",
+            "s3_manifest_bucket_key": "monitoring_bucket_name",
+            "s3_in_process_manifest_prefix": "manifests/source_manifest/wi_topup_converted_hly/in_process/", 
+            "s3_reprocessing_manifest_prefix": "manifests/source_manifest/wi_topup_converted_hly/reprocessing/",
+            "sql_file_path": "./cu/sql/wi_topup_converted_hly.sql",
+            "file_format": "csv",
+            "delimiter": "|",
+            "header_flag": false,
+            "read_mode": "FAILFAST",
+            "file_timestamp_partition_flag": true,
+            "source_partition_list": [
+
+            ]
+        },
+        "endpoint_configuration": {
+            "table_name": "wde.cu_s.wi_topup_converted_hly",
+            "target_partition_list": [],
+            "data_refresh_column_list": [],
+            "save_mode": "append",
+            "partition_overwrite_flag": false
+        },
+        "data_standardization_configuration": 
+           [
+               {
+                   "standardize_function": "standardize_msisdn",
+                   "source_column_name": "_c0",
+                   "additional_parameters": {
+                       "target_column_name": "owning_subscriber_id"
+                   }
+               },
+               {
+                   "standardize_function": "standardize_timestamp",
+                   "source_column_name": "_c4",
+                   "additional_parameters": {
+                       "timestamp_format": "yyyy-MM-dd HH:mm:ss",
+                       "target_column_name": "effective_dttm"
+                   }
+               },
+               {
+                   "standardize_function": "standardize_timestamp",
+                   "source_column_name": "_c12",
+                   "additional_parameters": {
+                       "timestamp_format": "yyyy-MM-dd HH:mm:ss",
+                       "target_column_name": "activation_dttm"
+                   }
+               },
+               {
+                   "standardize_function": "standardize_timestamp",
+                   "source_column_name": "_c13",
+                   "additional_parameters": {
+                       "timestamp_format": "yyyy-MM-dd HH:mm:ss",
+                       "target_column_name": "usage_dttm"
+                   }
+               },
+               {
+                   "standardize_function": "standardize_timestamp",
+                   "source_column_name": "_c18",
+                   "additional_parameters": {
+                       "timestamp_format": "yyyy-MM-dd HH:mm:ss",
+                       "target_column_name": "process_dttm"
+                   }
+               }
+           ],
+        "data_quality_configuration": [
+            {
+                "rule_name": "compare_file_size_in_bytes",
+                "parameters": {
+                    "actual_size": null,
+                    "expected_size": null
+                },
+                "action": "log",
+                "execution_stage": "raw",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            },
+            {
+                "rule_name": "reconcile_file_set",
+                "parameters": {
+                    "file_name_column": "file_name",
+                    "manifest_file_set": null
+                },
+                "action": "log",
+                "execution_stage": "raw",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            },
+            {
+                "rule_name": "check_schema_consistency",
+                "parameters": {
+                    "expected_schema": 
+                [
+                    {
+                        "column_name": "owning_subscriber_id",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "txn_date",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "effective_hour",
+                        "data_type": "int"
+                    },
+                    {
+                        "column_name": "effective_time_key",
+                        "data_type": "int"
+                    },
+                    {
+                        "column_name": "effective_dttm",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "aparty_loc_info",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "aparty_lac_info",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "aparty_ci_info",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "brand",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "subbrand",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "mnp_type",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "source_brand",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "activation_dttm",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "usage_dttm",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "usage_rnk",
+                        "data_type": "int"
+                    },
+                    {
+                        "column_name": "iccid",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "material_code",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "tac",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "process_dttm",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "dbx_process_dttm",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "file_name",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "file_id",
+                        "data_type": "string"
+                    }
+                ]
+                },
+                "action": "log",
+                "execution_stage": "transformed",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            },
+            { 
+                "rule_name": "check_column_count", 
+                "parameters": { "expected_count": 22 },
+                "action": "log",
+                "execution_stage": "transformed",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            }
+        ]
+    },
+    "utility_configuration": {
+    }
+  }
