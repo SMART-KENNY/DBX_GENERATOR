@@ -10,12 +10,12 @@ First you must install these libraries
 Second change the BASE_PATH from the .env file
  - .env
 
-Third from the context_parameter sheet change the context parameters values from the dbx_scehma.xlsx
+Third from the context_parameter sheet change the context parameters values from the dbx_schema.xlsx
  - Don't edit the red highligted column
 
 Fourth from the schema sheet in dbx_scehma.xlsx
  - input your ddl (fields in the column B) and data type in column C
- - always include the these fields at the bottom
+ - always include these fields at the bottom
    - dbx_process_dttm
    - file_name
    - file_id
