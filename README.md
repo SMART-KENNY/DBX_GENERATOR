@@ -1,7 +1,7 @@
 # DBX_GENERATOR
 Databricks generator
 
-0 clone this repo after that
+0 clone this repo
  - choose a folder in your local laptop
  - git init
  - git clone https://github.com/SMART-KENNY/DBX_GENERATOR.git
