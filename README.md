@@ -2,7 +2,7 @@
 Databricks generator
 
 
-First using you must install these libraries
+First you must install these libraries
 - pip install openpyxl
 - pip install python-dotenv
 
