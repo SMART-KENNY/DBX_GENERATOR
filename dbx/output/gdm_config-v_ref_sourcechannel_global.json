@@ -1,0 +1,22 @@
+{
+        "source_name": "v_ref_sourcechannel_global",
+        "source_directory": "/talend_prod/data/hive/gdm_landing/v_ref_sourcechannel/",
+        "valid_filename_prefixes": ["V_REF_SOURCE"],
+        "excluded_extensions": ["ipynb_checkpoints","tmp","temp"],
+        "retrieve_file_line_count": "Y",
+        "max_files_to_process": 50,
+        "file_mtime_threshold": 518400,
+        "target_s3_bucket_name": "pldt-smart-nonprod-120569600034-ap-southeast-1-gdm-wde-landing",
+        "target_s3_landing_directory": "v_ref_sourcechannel_global/raw/",
+        "target_aws_region": "ap-southeast-1",
+        "source_manifest_s3_bucket_name": "pldt-smart-nonprod-120569600034-ap-southeast-1-gdm-wde-monitor",
+        "source_manifest_s3_landing_directory": "manifests/source_manifest/v_ref_sourcechannel_global/raw/",
+        "housekeeping_manifest_s3_bucket_name": "pldt-smart-nonprod-120569600034-ap-southeast-1-gdm-wde-monitor",
+        "housekeeping_manifest_s3_landing_directory": "manifests/housekeeping_manifest/v_ref_sourcechannel_global/raw/",
+        "job_log_s3_bucket_name": "pldt-smart-nonprod-120569600034-ap-southeast-1-gdm-wde-monitor",
+        "job_log_s3_landing_directory": "logs/job_logs/v_ref_sourcechannel_global/",
+        "s3_vpc_endpoint_url": "https://bucket.vpce-0cb360879a11cdca5-vg6052s8.s3.ap-southeast-1.vpce.amazonaws.com",
+        "databricks_workspace_name": "wde",
+        "databricks_environment" : "non_prod",
+        "exclude_first_n_rows_in_file_line_count": 0
+}

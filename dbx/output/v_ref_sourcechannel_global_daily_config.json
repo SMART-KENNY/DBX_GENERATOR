@@ -1,0 +1,157 @@
+{
+    "application_name": "Source Channel Reference",
+    "logger_configuration": {
+      "log_level": "DEBUG"
+    },
+    "task_configuration": {
+        "datasource_configuration": {
+            "s3_data_bucket_key": "landing_bucket_name",
+            "s3_in_process_data_prefix": "v_ref_sourcechannel_global/in_process/",
+            "s3_reprocessing_data_prefix": "v_ref_sourcechannel_global/reprocessing/",
+            "s3_manifest_bucket_key": "monitoring_bucket_name",
+            "s3_in_process_manifest_prefix": "manifests/source_manifest/v_ref_sourcechannel_global/in_process/", 
+            "s3_reprocessing_manifest_prefix": "manifests/source_manifest/v_ref_sourcechannel_global/reprocessing/",
+            "sql_file_path": "./ref/sql/v_ref_sourcechannel_global.sql",
+            "file_format": "csv",
+            "delimiter": "~",
+            "header_flag": false,
+            "read_mode": "FAILFAST",
+            "file_timestamp_partition_flag": true,
+            "source_partition_list": [
+
+            ]
+        },
+        "endpoint_configuration": {
+            "table_name": "wde.ref .v_ref_sourcechannel_global",
+            "target_partition_list": [],
+            "data_refresh_column_list": [],
+            "save_mode": "overwrite",
+            "partition_overwrite_flag": false
+        },
+        "data_standardization_configuration": 
+           [
+               {
+                   "standardize_function": "standardize_timestamp",
+                   "source_column_name": "_c7",
+                   "additional_parameters": {
+                       "timestamp_format": "yyyy-MM-dd HH:mm:ss",
+                       "target_column_name": "valid_from"
+                   }
+               },
+               {
+                   "standardize_function": "standardize_timestamp",
+                   "source_column_name": "_c8",
+                   "additional_parameters": {
+                       "timestamp_format": "yyyy-MM-dd HH:mm:ss",
+                       "target_column_name": "valid_to"
+                   }
+               }
+           ],
+        "data_quality_configuration": [
+            {
+                "rule_name": "compare_file_size_in_bytes",
+                "parameters": {
+                    "actual_size": null,
+                    "expected_size": null
+                },
+                "action": "log",
+                "execution_stage": "raw",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            },
+            {
+                "rule_name": "reconcile_file_set",
+                "parameters": {
+                    "file_name_column": "file_name",
+                    "manifest_file_set": null
+                },
+                "action": "log",
+                "execution_stage": "raw",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            },
+            {
+                "rule_name": "check_schema_consistency",
+                "parameters": {
+                    "expected_schema": 
+                [
+                    {
+                        "column_name": "d_sourcechannel_sk",
+                        "data_type": "decimal(30,0)"
+                    },
+                    {
+                        "column_name": "sourcechannel_cd",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "sourcechannel_nm",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "sourcechannel_desc",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "sourcechannel_group",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "sourcechannel_type",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "entity_cd",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "valid_from",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "valid_to",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "active_flag",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "pasaload_type",
+                        "data_type": "decimal(30,0)"
+                    },
+                    {
+                        "column_name": "dbx_process_dttm",
+                        "data_type": "timestamp"
+                    },
+                    {
+                        "column_name": "file_name",
+                        "data_type": "string"
+                    },
+                    {
+                        "column_name": "file_id",
+                        "data_type": "string"
+                    }
+                ]
+                },
+                "action": "log",
+                "execution_stage": "transformed",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            },
+            { 
+                "rule_name": "check_column_count", 
+                "parameters": { "expected_count": 14 },
+                "action": "log",
+                "execution_stage": "transformed",
+                "send_email_notifications": false,
+                "send_teams_notifications": true,
+                "raise_servicenow_tickets": false
+            }
+        ]
+    },
+    "utility_configuration": {
+    }
+  }
