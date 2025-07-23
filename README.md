@@ -1,7 +1,7 @@
 # DBX_GENERATOR
 Databricks generator
 
-
+0 clone this repo after that
 First you must install these libraries
 - pip install openpyxl
 - pip install python-dotenv
