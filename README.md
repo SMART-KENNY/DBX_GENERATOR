@@ -2,6 +2,10 @@
 Databricks generator
 
 0 clone this repo after that
+ - choose a folder in your local laptop
+ - git init
+ - git clone https://github.com/SMART-KENNY/DBX_GENERATOR.git
+
 First you must install these libraries
 - pip install openpyxl
 - pip install python-dotenv
