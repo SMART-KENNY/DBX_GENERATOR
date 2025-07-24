@@ -165,6 +165,7 @@ resources:
             node_type_id: <node_type_id>
             aws_attributes:
               first_on_demand: <first_on_demand>
+              zone_id: auto
             spark_conf: ${var.default_spark_conf}
             spark_env_vars: ${var.default_spark_env_vars}
             num_workers: <num_workers>
