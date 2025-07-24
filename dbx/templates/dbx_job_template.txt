@@ -6,7 +6,7 @@ resources:
       tags:
         owner: Wireless Data Engineering
         layer: <tier>
-        job_type: daily
+        job_type: <frequency>
 
       permissions:
         - group_name: "GSG PLDT GDM Databricks Developers WDE ${var.group_postfix}"
@@ -162,15 +162,15 @@ resources:
         - job_cluster_key: cluster
           new_cluster:
             spark_version: ${var.spark_version}
-            node_type_id: i3.xlarge
+            node_type_id: <node_type_id>
             aws_attributes:
-              first_on_demand: 5
+              first_on_demand: <first_on_demand>
             spark_conf: ${var.default_spark_conf}
             spark_env_vars: ${var.default_spark_env_vars}
-            num_workers: 4
+            num_workers: <num_workers>
             autoscale:
-              min_workers: 2
-              max_workers: 4
+              min_workers: <min_workers>
+              max_workers: <max_workers>
             cluster_log_conf:
               dbfs:
                 destination: dbfs:/cluster-logs/<pipeline>_<frequency>_<tier>_job

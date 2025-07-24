@@ -5,6 +5,9 @@ from typing import Optional
 import json
 import os
 from dotenv import load_dotenv
+import math
+import re
+from cluster_compute import get_cluster_values
 
 @dataclass
 class ContextParam:
@@ -16,13 +19,14 @@ class ContextParam:
     tier_suffix: Optional[str] = None
     p_data_domain: Optional[str] = None
     p_header: Optional[str] = None
-    p_delimeter: Optional[str] = None
+    p_delimeter: Optional[str] = ""
     p_table_name: Optional[str] = None
     p_save_mode: Optional[str] = None
     p_application_name: Optional[str] = None
     p_soure_file_format: Optional[str] = None
     p_source_directory: Optional[str] = None
     p_file_mask: Optional[str] = None
+    p_file_size: Optional[str] = None
 
 
 def read_excel_file(file_path: str = 'dbx_schema.xlsx', sheet: str = 'context_parameters') -> ContextParam:
@@ -406,10 +410,24 @@ def main() -> None:
     parent_template_path = rf"{BASE_PATH}templates\\"
     parent_trash_path = rf"{BASE_PATH}trash\\"
 
+
+    config = get_cluster_values(context.p_file_size, context.p_soure_file_format)
+    node_type_id = config["node_type_id"]
+    first_on_demand = config["first_on_demand"]
+    num_workers = config["num_workers"]
+    min_workers = config["min_workers"]
+    max_workers = config["max_workers"]
+
     if context.p_header:
         p_header = "true"
     else:
         p_header = "false"
+
+    if isinstance(context.p_delimeter, float) and math.isnan(context.p_delimeter):
+        context.p_delimeter = ""
+
+    if isinstance(context.tier_suffix, float) and math.isnan(context.tier_suffix):
+        context.tier_suffix = ""
 
     string_to_replace = {
         "<work_space>": context.p_work_space,
@@ -426,9 +444,18 @@ def main() -> None:
         "<header_flag>": p_header,
         "<save_mode>": context.p_save_mode,
         "<source_directory>": context.p_source_directory,
-        "<application_name>": context.p_application_name
+        "<application_name>": context.p_application_name,
+        "<node_type_id>": str(node_type_id),
+        "<first_on_demand>": str(first_on_demand),
+        "<num_workers>": str(num_workers),
+        "<min_workers>": str(min_workers),
+        "<max_workers>": str(max_workers),
     }
 
+    string_to_replace = {
+        k: "" if v is None or (isinstance(v, float) and math.isnan(v)) else str(v)
+        for k, v in string_to_replace.items()
+    }
     generate_job_yml(
         input_path=Path(rf"{parent_template_path}dbx_job_template.txt"),
         output_path=Path(rf"{parent_output_path}{context.p_pipeline}_job.yml"),
