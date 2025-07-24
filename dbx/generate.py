@@ -159,7 +159,7 @@ def generate_sql(
     if not output_file:
         output_file = "generated"
 
-    output_path = Path(f"{output_file}{p_pipeline}_{p_tier}.sql")
+    output_path = Path(f"{output_file}{p_pipeline}.sql")
     output_path.write_text("\n".join(sql_lines), encoding="utf-8")
 
     print(f"✅ SQL FILE {output_path.resolve()}")
@@ -395,7 +395,7 @@ def replace_templated_word_for_json_config(
 
 def remove_trash(trash_path: Path) -> None:
     
-    for file in trash_path.glob("*.txt"):
+    for file in trash_path.glob("*.*"):
         if file.is_file():
             file.unlink()
             print(f"🗑️  Clean-up trash: {file}")
@@ -497,7 +497,7 @@ def main() -> None:
         template_path=f"{parent_template_path}dbx_json_template.txt"
     )
 
-    json_config_p = f"{parent_output_path}{context.p_pipeline}_{context.p_frequency}_config.json"
+    json_config_p = f"{parent_output_path}{context.p_pipeline}_config.json"
 
 
     replace_templated_word_for_json_config(

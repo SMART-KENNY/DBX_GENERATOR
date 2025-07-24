@@ -87,7 +87,7 @@ resources:
               execution_type: "bau"
               reprocess_partition: ""
               s3_dbx_job_trigger_event_path: "s3://${var.wde_monitoring_bucket_name}/manifests/source_manifest/<pipeline>/raw/"
-              config_file_path: "./<data_domain>/etc/<pipeline>_<frequency>_config.json"
+              config_file_path: "./<data_domain>/etc/<pipeline>_config.json"
               aws_profile: ${var.aws_profile_name}
               landing_bucket_name: ${var.wde_bucket_name}
               monitoring_bucket_name: ${var.wde_monitoring_bucket_name}
@@ -148,7 +148,7 @@ resources:
               task_notebook_path: ${var.job_reference.task_notebook_path}
               execution_env: ${var.job_reference.execution_env}
               upstream_task_name: "<pipeline>_<frequency>_<tier>_task"
-              config_file_path: "./<data_domain>/etc/<pipeline>_<frequency>_config.json"
+              config_file_path: "./<data_domain>/etc/<pipeline>_config.json"
               is_active: "false"
               aws_profile: ${var.aws_profile_name}
               landing_bucket_name: ${var.wde_bucket_name}
