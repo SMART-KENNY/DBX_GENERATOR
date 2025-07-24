@@ -80,7 +80,7 @@ resources:
               job_start_time: ${var.job_reference.job_start_time}
               task_run_id: ${var.job_reference.task_run_id}
               task_name: ${var.job_reference.task_name}
-              task_type: "silver"
+              task_type: "<p_tier>"
               workspace_name: ${var.workspace_name}
               task_notebook_path: ${var.job_reference.task_notebook_path}
               execution_env: ${var.job_reference.execution_env}
