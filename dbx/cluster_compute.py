@@ -2,7 +2,7 @@ import re
 
 # Cluster specs mapping
 WAREHOUSE_SIZES = {
-    "2X-Small": {"node_type_id": "i3.2xlarge", "worker_count": 1},
+    "2X-Small": {"node_type_id": "i3.xlarge", "worker_count": 1},
     "X-Small":   {"node_type_id": "i3.2xlarge", "worker_count": 2},
     "Small":     {"node_type_id": "i3.4xlarge", "worker_count": 4},
     "Medium":    {"node_type_id": "i3.8xlarge", "worker_count": 8},
